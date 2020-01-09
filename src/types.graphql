@@ -1,0 +1,21 @@
+type Query {
+  noop: Boolean
+}
+
+type Mutation {
+  sendMessage(text: String): Message
+}
+
+type Subscription {
+  chat: Chat
+}
+
+type Chat {
+  id: ID
+  message: Message
+}
+
+type Message {
+  id: ID
+  text: String
+}
