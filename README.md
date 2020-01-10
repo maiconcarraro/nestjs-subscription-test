@@ -10,7 +10,7 @@ $ yarn
 $ yarn start
 ```
 
-## Flow
+## Playground
 
 1. Access http://localhost:4002/graphql
 
@@ -18,7 +18,7 @@ $ yarn start
 
 ```bash
 subscription {
-  chat {
+  chat(id: 123) {
     message {
       id
       text
@@ -31,11 +31,15 @@ subscription {
 
 ```bash
 mutation {
-  sendMessage(text: "test") {
+  sendMessage(text: "test", chatId: 123) {
     id
     text
   }
 }
 ```
 
-4. Check subscription 2.
+4. Check subscription on 2.
+
+## Details
+
+If you send to a different **chatId**, then you must subscription to that.

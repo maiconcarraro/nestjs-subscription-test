@@ -3,11 +3,11 @@ type Query {
 }
 
 type Mutation {
-  sendMessage(text: String): Message
+  sendMessage(text: String, chatId: ID): Message
 }
 
 type Subscription {
-  chat: Chat
+  chat(id: ID): Chat
 }
 
 type Chat {

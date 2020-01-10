@@ -6,18 +6,19 @@ const CHAT_EVENT_NAME = 'chat';
 
 @Resolver('Chat')
 export class ChatResolvers {
-  constructor(@Inject('PUB_SUB') private pubSub: PubSubEngine) {}
+  constructor(@Inject('PUB_SUB') private pubSub: PubSubEngine) { }
 
   @Mutation('sendMessage')
-  async sendMessage(@Args('text') text) {
+  async sendMessage(@Args('text') text, @Args('chatId') chatId) {
     const message = { id: Date.now(), text };
     console.log(text);
-    this.pubSub.publish(CHAT_EVENT_NAME, { [CHAT_EVENT_NAME]: { message } });
+    this.pubSub.publish(`${CHAT_EVENT_NAME}_${chatId}`, { [CHAT_EVENT_NAME]: { message } });
     return message;
   }
 
   @Subscription(CHAT_EVENT_NAME)
-  chat() {
-    return this.pubSub.asyncIterator(CHAT_EVENT_NAME);
+  chat(@Args('id') id) {
+    console.log(id);
+    return this.pubSub.asyncIterator(`${CHAT_EVENT_NAME}_${id}`);
   }
 }
